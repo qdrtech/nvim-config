@@ -55,6 +55,31 @@ return {
         },
       })
 
+      opts.servers.gopls = vim.tbl_deep_extend("force", opts.servers.gopls or {}, {
+        settings = {
+          gopls = {
+            gofumpt = true,
+            usePlaceholders = true,
+            analyses = {
+              unusedparams = true,
+              unusedwrite = true,
+              nilness = true,
+              shadow = true,
+              fieldalignment = false,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+          },
+        },
+      })
+
       return opts
     end,
     config = function(_, opts)
