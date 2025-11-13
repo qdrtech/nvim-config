@@ -10,6 +10,14 @@ local M = {
 				"shellcheck",
 				"shfmt",
 				"flake8",
+				"gofumpt",
+				"goimports",
+				"golangci-lint",
+				"gomodifytags",
+				"gotests",
+				"impl",
+				"iferr",
+				"delve",
 
 				-- Language Servers
 				"typescript-language-server",  -- TypeScript/JavaScript

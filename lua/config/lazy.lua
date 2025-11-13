@@ -19,6 +19,7 @@ require("lazy").setup({
 	spec = {
 		-- add LazyVim and import its plugins
 		{ "LazyVim/LazyVim" }, 
+		{ import = "lazyvim.plugins.extras.lang.go" },
 		{ "catppuccin/nvim", name="catppuccin", priority = 1000 },
 		{ "folke/tokyonight.nvim", opts = {
 				style = "storm",
