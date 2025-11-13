@@ -1,52 +1,48 @@
-local M = {
+return {
 	{
 		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
+		opts = function(_, opts)
+			local function prettierd_first()
+				return { "prettierd", "prettier", stop_after_first = true }
+			end
+
+			opts.formatters_by_ft = vim.tbl_deep_extend("force", opts.formatters_by_ft or {}, {
 				-- Lua
 				lua = { "stylua" },
 
 				-- JavaScript/TypeScript
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+				javascript = prettierd_first(),
+				javascriptreact = prettierd_first(),
+				typescript = prettierd_first(),
+				typescriptreact = prettierd_first(),
 
 				-- Web
-				html = { "prettierd", "prettier", stop_after_first = true },
-				css = { "prettierd", "prettier", stop_after_first = true },
-				scss = { "prettierd", "prettier", stop_after_first = true },
-				less = { "prettierd", "prettier", stop_after_first = true },
+				html = prettierd_first(),
+				css = prettierd_first(),
+				scss = prettierd_first(),
+				less = prettierd_first(),
 
 				-- Config/Data
-				json = { "prettierd", "prettier", stop_after_first = true },
-				jsonc = { "prettierd", "prettier", stop_after_first = true },
-				yaml = { "prettierd", "prettier", stop_after_first = true },
+				json = prettierd_first(),
+				jsonc = prettierd_first(),
+				yaml = prettierd_first(),
 
 				-- Go
 				go = { "gofumpt", "goimports", stop_after_first = true },
 
 				-- Markdown
-				markdown = { "prettierd", "prettier", stop_after_first = true },
-				["markdown.mdx"] = { "prettierd", "prettier", stop_after_first = true },
+				markdown = prettierd_first(),
+				["markdown.mdx"] = prettierd_first(),
 
 				-- GraphQL
-				graphql = { "prettierd", "prettier", stop_after_first = true },
+				graphql = prettierd_first(),
 
 				-- Vue/Svelte
-				vue = { "prettierd", "prettier", stop_after_first = true },
-				svelte = { "prettierd", "prettier", stop_after_first = true },
-			},
-			default_format_opts = {
-				lsp_format = "fallback",
-			},
-			-- Fixed typo: format_on_save (was forat_on_save)
-			format_on_save = {
-				timeout_ms = 500,
-				lsp_format = "fallback",
-			},
-		}
-	}
-}
+				vue = prettierd_first(),
+				svelte = prettierd_first(),
+			})
 
-return M
+			return opts
+		end,
+	},
+}

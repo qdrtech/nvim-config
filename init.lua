@@ -8,4 +8,3 @@ vim.g.mapleader = " "
 require("config.lazy")
 require("config.opts")
 require("config.keybindings")
-require("config.autocmds")
