@@ -13,6 +13,7 @@ local M = {
 				"goimports", -- Go import management
 				"golangci-lint", -- Go linter (driven by nvim-lint)
 				"sqlfmt", -- SQL formatter (driven by conform)
+				"tree-sitter-cli", -- Builds nvim-treesitter parsers
 
 				-- Language Servers
 				"typescript-language-server", -- TypeScript/JavaScript
