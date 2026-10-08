@@ -5,7 +5,9 @@ local M = {
 		opts.servers = opts.servers or {}
 
 		-- Disable the stock tsserver setup in favor of the richer VTSLS experience.
+		-- lspconfig renamed tsserver to ts_ls; disable both names.
 		opts.servers.tsserver = false
+		opts.servers.ts_ls = false
 
 		local inlay_hints = {
 			includeInlayParameterNameHints = "all",
