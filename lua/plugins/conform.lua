@@ -3,7 +3,8 @@ local M = {
 		"stevearc/conform.nvim",
 		opts = {
 			formatters = {
-				require_cwd = true,
+				-- Run biome only in projects with a biome config; otherwise fall back to prettier.
+				biome = { require_cwd = true },
 			},
 			formatters_by_ft = {
 				-- Lua
