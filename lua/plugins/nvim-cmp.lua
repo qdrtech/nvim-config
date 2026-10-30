@@ -73,6 +73,11 @@ local M = {
           local auto_select = true
           return {
             auto_brackets = {}, -- configure any filetype to auto add brackets
+            snippet = {
+              expand = function(args)
+                vim.snippet.expand(args.body)
+              end,
+            },
             completion = {
               completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
             },
@@ -99,18 +104,26 @@ local M = {
                   fallback()
                 end
               end,
-              -- Tab: Accept cmp selection or insert tab
+              -- Tab (VS Code style): accept cmp item, else accept Copilot
+              -- ghost text, else jump to the next snippet placeholder.
               ["<Tab>"] = cmp.mapping(function(fallback)
+                local copilot_ok, copilot_suggestion = pcall(require, "copilot.suggestion")
                 if cmp.visible() then
                   cmp.confirm({ select = true })
+                elseif copilot_ok and copilot_suggestion.is_visible() then
+                  copilot_suggestion.accept()
+                elseif vim.snippet.active({ direction = 1 }) then
+                  vim.snippet.jump(1)
                 else
                   fallback()
                 end
               end, { "i", "s" }),
-              -- S-Tab: Select previous cmp item or insert shift-tab
+              -- S-Tab: previous cmp item, else previous snippet placeholder.
               ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                   cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif vim.snippet.active({ direction = -1 }) then
+                  vim.snippet.jump(-1)
                 else
                   fallback()
                 end
