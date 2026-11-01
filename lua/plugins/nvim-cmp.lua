@@ -104,14 +104,11 @@ local M = {
                   fallback()
                 end
               end,
-              -- Tab (VS Code style): accept cmp item, else accept Copilot
-              -- ghost text, else jump to the next snippet placeholder.
+              -- Tab (VS Code style): accept the cmp item, else jump to the
+              -- next snippet placeholder.
               ["<Tab>"] = cmp.mapping(function(fallback)
-                local copilot_ok, copilot_suggestion = pcall(require, "copilot.suggestion")
                 if cmp.visible() then
                   cmp.confirm({ select = true })
-                elseif copilot_ok and copilot_suggestion.is_visible() then
-                  copilot_suggestion.accept()
                 elseif vim.snippet.active({ direction = 1 }) then
                   vim.snippet.jump(1)
                 else

@@ -2,15 +2,22 @@ local M = {
 	{
 		"stevearc/conform.nvim",
 		opts = {
+			formatters = {
+				-- Run biome only in projects with a biome config; otherwise fall back to prettier.
+				biome = { require_cwd = true },
+			},
 			formatters_by_ft = {
 				-- Lua
 				lua = { "stylua" },
 
+				-- Go: goimports fixes imports, gofumpt applies strict formatting
+				go = { "goimports", "gofumpt" },
+
 				-- JavaScript/TypeScript
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+				javascriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
+				typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+				typescriptreact = { "biome", "prettierd", "prettier", stop_after_first = true },
 
 				-- Web
 				html = { "prettierd", "prettier", stop_after_first = true },
@@ -19,9 +26,12 @@ local M = {
 				less = { "prettierd", "prettier", stop_after_first = true },
 
 				-- Config/Data
-				json = { "prettierd", "prettier", stop_after_first = true },
-				jsonc = { "prettierd", "prettier", stop_after_first = true },
+				json = { "biome", "prettierd", "prettier", stop_after_first = true },
+				jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
 				yaml = { "prettierd", "prettier", stop_after_first = true },
+
+				-- SQL
+				sql = { "sqlfmt" },
 
 				-- Markdown
 				markdown = { "prettierd", "prettier", stop_after_first = true },
@@ -37,13 +47,12 @@ local M = {
 			default_format_opts = {
 				lsp_format = "fallback",
 			},
-			-- Fixed typo: format_on_save (was forat_on_save)
 			format_on_save = {
 				timeout_ms = 500,
 				lsp_format = "fallback",
 			},
-		}
-	}
+		},
+	},
 }
 
 return M
