@@ -8,6 +8,23 @@ local M = {
           "hrsh7th/cmp-buffer",
           "hrsh7th/cmp-path",
         },
+        keys = {
+          {
+            "<leader>uc",
+            function()
+              local cmp = require("cmp")
+              local types = require("cmp.types")
+              vim.g.cmp_autocomplete_off = not vim.g.cmp_autocomplete_off
+              local autocomplete = { types.cmp.TriggerEvent.TextChanged }
+              if vim.g.cmp_autocomplete_off then
+                autocomplete = false
+              end
+              cmp.setup({ completion = { autocomplete = autocomplete } })
+              vim.notify("Autocomplete " .. (vim.g.cmp_autocomplete_off and "off" or "on"))
+            end,
+            desc = "Toggle autocomplete",
+          },
+        },
         opts = function()
           -- Define fallback icons
           local kind_icons = {
